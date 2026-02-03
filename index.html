@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>api panel</title>
+
+<style>
+body {
+    background:#000;
+    color:#ff2a2a;
+    font-family: monospace;
+    padding:20px;
+}
+button, textarea {
+    background:#000;
+    color:#ff2a2a;
+    border:1px solid #ff2a2a;
+    font-family: monospace;
+    width:100%;
+    padding:6px;
+}
+button:hover {
+    background:#ff2a2a;
+    color:#000;
+}
+.box {
+    border:1px solid #ff2a2a;
+    padding:12px;
+    margin-bottom:14px;
+}
+pre {
+    border:1px solid #ff2a2a;
+    padding:10px;
+}
+</style>
+</head>
+<body>
+
+<h1>api panel</h1>
+
+<div class="box">
+    <button onclick="callGet()">GET /get</button>
+</div>
+
+<div class="box">
+    <textarea id="body">{}</textarea>
+    <button onclick="callUpdate()">POST /update</button>
+</div>
+
+<div class="box">
+    <button onclick="callReset()">GET /reset</button>
+</div>
+
+<div class="box">
+    <pre id="out">waiting...</pre>
+</div>
+
+<script>
+async function req(method, url, body=null) {
+    const out = document.getElementById("out");
+    out.textContent = "loading...";
+
+    try {
+        const opt = { method };
+        if (body) {
+            opt.headers = { "Content-Type": "application/json" };
+            opt.body = body;
+        }
+
+        const r = await fetch(url, opt);
+        out.textContent =
+            method + " " + url +
+            "\nstatus: " + r.status +
+            "\n\n" + await r.text();
+
+    } catch (e) {
+        out.textContent = "error:\n" + e;
+    }
+}
+
+function callGet()    { req("GET", "https://muserlogiccpu.pythonanywhere.com/get"); }
+function callUpdate() { req("POST", "https://muserlogiccpu.pythonanywhere.com/update", body.value); }
+function callReset()  { req("GET", "https://muserlogiccpu.pythonanywhere.com/reset"); }
+</script>
+
+</body>
+</html>
