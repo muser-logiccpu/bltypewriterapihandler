@@ -78,9 +78,9 @@ async function req(method, url, body=null) {
     }
 }
 
-function callGet()    { req("GET", "https://muserlogiccpu.pythonanywhere.com/get"); }
-function callUpdate() { req("POST", "https://muserlogiccpu.pythonanywhere.com/update", body.value); }
-function callReset()  { req("GET", "https://muserlogiccpu.pythonanywhere.com/reset"); }
+function callGet()    { req("GET", "http://muserlogiccpu.pythonanywhere.com/get"); }
+function callUpdate() { req("POST", "http://muserlogiccpu.pythonanywhere.com/update", body.value); }
+function callReset()  { req("GET", "http://muserlogiccpu.pythonanywhere.com/reset"); }
 </script>
 
 </body>
